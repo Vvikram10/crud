@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">Contact List</h1>
+    <a href="{% url 'contact_create' %}" class="btn btn-primary mb-3">Add Contact</a>
+    <div class="row">
+        {% for contact in contacts %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="{{ contact.image.url }}" class="card-img-top" alt="Contact Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ contact.name }}</h5>
+                        <p class="card-text">Email: {{ contact.email }}</p>
+                        <p class="card-text">Contact: {{ contact.contact }}</p>
+                        <p class="card-text">Address: {{ contact.address }}</p>
+                        <a href="{% url 'contact_update' contact.id %}" class="btn btn-primary">Edit</a>
+                        <form action="{% url 'contact_delete' contact.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
